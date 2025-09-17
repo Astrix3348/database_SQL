@@ -1,0 +1,12 @@
+select * from emp where supcode is NULL;
+select * from emp where supcode is not NULL;
+
+select * from emp where birthdate>any(select birthdate from emp where birthdate = '1955-01-24') order by birthdate asc;
+
+ SELECT * FROM emp
+    -> WHERE birthdate = (
+    ->   SELECT MIN(birthdate) FROM emp
+    ->   WHERE birthdate > (
+    ->     SELECT MIN(birthdate) FROM emp
+    ->   )
+    -> );
